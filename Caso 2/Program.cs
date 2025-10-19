@@ -32,7 +32,7 @@ class Program
         int opcion;
         do
         {
-            Console.WriteLine("\n-- Menú AgendaPro --");
+            Console.WriteLine("\n Menú AgendaPro ");
             Console.WriteLine("1. Registrar persona");
             Console.WriteLine("2. Listar personas");
             Console.WriteLine("3. Crear cita para persona");
@@ -64,7 +64,7 @@ class Program
                     MostrarTodasLasCitas();
                     break;
                 case 6:
-                    Console.WriteLine("Saliendo...");
+                    Console.WriteLine("Saliendo");
                     break;
                 default:
                     Console.WriteLine("Opción inválida.");
@@ -104,7 +104,7 @@ class Program
 
     static void ListarPersonas()
     {
-        Console.WriteLine("-- Personas Registradas --");
+        Console.WriteLine("Personas Registradas");
         foreach (var p in personas)
             Console.WriteLine($"{p.Id}|{p.Nombre}|{p.Telefono}");
     }
@@ -122,3 +122,40 @@ class Program
                 return;
             }
 
+            Console.Write("Fecha: ");
+            string fecha = Console.ReadLine();
+
+            Console.Write("Descripción: ");
+            string descripcion = Console.ReadLine();
+
+            citas.Add(new Cita { PersonaId = pid, Fecha = fecha, Descripcion = descripcion });
+            Console.WriteLine("Cita registrada.");
+        }
+        catch
+        {
+            Console.WriteLine("Datos inválidos.");
+        }
+    }
+
+    static void ListarCitasPorPersona()
+    {
+        Console.Write("PersonaId: ");
+        if (int.TryParse(Console.ReadLine(), out int id))
+        {
+            foreach (var c in citas)
+                if (c.PersonaId == id)
+                    Console.WriteLine($"{c.PersonaId}|{c.Fecha}|{c.Descripcion}");
+        }
+        else
+        {
+            Console.WriteLine("Id inválido.");
+        }
+    }
+
+    static void MostrarTodasLasCitas()
+    {
+        Console.WriteLine("-- Todas las Citas --");
+        foreach (var c in citas)
+            Console.WriteLine($"{c.PersonaId}|{c.Fecha}|{c.Descripcion}");
+    }
+}
