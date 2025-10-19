@@ -51,7 +51,7 @@ class Program
                     MostrarSinStock();
                     break;
                 case 5:
-                    Console.WriteLine("Saliendo");
+                    Console.WriteLine("Saliendo...");
                     break;
                 default:
                     Console.WriteLine("Opción inválida.");
@@ -80,7 +80,7 @@ class Program
             p.Cantidad = int.Parse(Console.ReadLine());
 
             productos.Add(p);
-            Console.WriteLine("Producto agregado exitosamente.");
+            Console.WriteLine("Producto agregado correctamente.");
         }
         catch
         {
@@ -88,7 +88,31 @@ class Program
         }
     }
 
+    static void ListarProductos()
+    {
+        Console.WriteLine("\n Lista de Productos ");
+        foreach (var p in productos)
+            Console.WriteLine(p);
+    }
 
+    static void BuscarProducto()
+    {
+        Console.Write("Ingrese código a buscar: ");
+        string codigo = Console.ReadLine();
+
+        var encontrado = productos.Find(p => p.Codigo == codigo);
+        if (encontrado != null)
+            Console.WriteLine("Encontrado: " + encontrado);
+        else
+            Console.WriteLine("Producto no encontrado.");
+    }
+
+    static void MostrarSinStock()
+    {
+        Console.WriteLine("\n Productos sin stock ");
+        foreach (var p in productos)
+            if (p.Cantidad == 0)
+                Console.WriteLine(p);
     }
 }
 
